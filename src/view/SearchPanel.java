@@ -6,17 +6,17 @@ import java.awt.Font;
 
 import javax.swing.*;
 
-import controller.SearchService;
+import controller.ParkingSystemFacade;
 
 public class SearchPanel extends JPanel {
 	private JTextField txtKeyword;
 	private JButton btnSearch;
 	private JTextArea txtResult;
 
-	private SearchService searchService;
+	private ParkingSystemFacade facade;
 
 	public SearchPanel() {
-		searchService = new SearchService();
+		facade = ParkingSystemFacade.getInstance();
 		initComponents();
 	}
 
@@ -54,6 +54,6 @@ public class SearchPanel extends JPanel {
 
 	private void performSearch() {
 		String keyword = txtKeyword.getText();
-		txtResult.setText(searchService.searchVehicle(keyword));
+		txtResult.setText(facade.searchVehicle(keyword));
 	}
 }
