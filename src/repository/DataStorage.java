@@ -1,28 +1,25 @@
-package Repository;
+package repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import enums.Role;
-import model.MonthlyCard;
-import model.ParkingSession;
-import model.Transaction;
+import model.ParkingSlot;
+import model.SubscriptionCard;
 import model.User;
 
 public class DataStorage {
     private static DataStorage instance;
     
     private List<User> users;
-    private List<ParkingSession> parkingSessions;
-    private List<MonthlyCard> monthlyCards;
-    private List<Transaction> transactions;
+    private List<ParkingSlot> parkingSlots;
+    private List<SubscriptionCard> subscriptionCards;
 
     // Sử dụng private constructor để áp dụng Singleton Pattern
     private DataStorage() {
         this.users = new ArrayList<>();
-        this.parkingSessions = new ArrayList<>();
-        this.monthlyCards = new ArrayList<>();
-        this.transactions = new ArrayList<>();
+        this.parkingSlots = new ArrayList<ParkingSlot>();
+        this.subscriptionCards = new ArrayList<SubscriptionCard>();
         
         initializeMockData();
     }
@@ -52,34 +49,12 @@ public class DataStorage {
 
     public User findUserByUsername(String username) {
         for (User user : users) {
-            if (user.getUsername().equals(username)) {
+            if (user.getUserName().equals(username)) {
                 return user;
             }
         }
         return null; // Không tìm thấy người dùng
     }
 
-    public List<ParkingSession> getParkingSessions() {
-        return parkingSessions;
-    }
-
-    public void addParkingSession(ParkingSession session) {
-        parkingSessions.add(session);
-    }
-
-    public List<MonthlyCard> getMonthlyCards() {
-        return monthlyCards;
-    }
-
-    public void addMonthlyCard(MonthlyCard card) {
-        monthlyCards.add(card);
-    }
-
-    public List<Transaction> getTransactions() {
-        return transactions;
-    }
-
-    public void addTransaction(Transaction transaction) {
-        transactions.add(transaction);
-    }
+   
 }
