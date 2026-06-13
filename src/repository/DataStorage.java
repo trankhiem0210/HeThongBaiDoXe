@@ -13,72 +13,113 @@ import model.SubscriptionCard;
 import model.User;
 
 public class DataStorage {
-    private static DataStorage instance;
-    
-    private List<User> users;
-    private List<ParkingSlot> parkingSlots;
-    private List<SubscriptionCard> subscriptionCards;
-    private List<ParkingTicket> parkingTickets;
-    private List<ParkingTicket> parkingTicketsHistory;
-    private List<ParkingArea> parkingAreas;
+	private static DataStorage instance;
 
-    // Sử dụng private constructor để áp dụng Singleton Pattern
-    private DataStorage() {
-        this.users = new ArrayList<>();
-        this.parkingSlots = new ArrayList<ParkingSlot>();
-        this.subscriptionCards = new ArrayList<SubscriptionCard>();
-        this.parkingTickets = new ArrayList<ParkingTicket>();
-        this.parkingTicketsHistory = new ArrayList<ParkingTicket>();
-        this.parkingAreas = new ArrayList<ParkingArea>();
+	private List<User> users;
+	private List<ParkingSlot> parkingSlots;
+	private List<SubscriptionCard> subscriptionCards;
+	private List<ParkingTicket> parkingTickets;
+	private List<ParkingTicket> parkingTicketsHistory;
+	private List<ParkingArea> parkingAreas;
 
-        initDefaultData();
-    }
+	// Sử dụng private constructor để áp dụng Singleton Pattern
+	private DataStorage() {
+		this.users = new ArrayList<>();
+		this.parkingSlots = new ArrayList<ParkingSlot>();
+		this.subscriptionCards = new ArrayList<SubscriptionCard>();
+		this.parkingTickets = new ArrayList<ParkingTicket>();
+		this.parkingTicketsHistory = new ArrayList<ParkingTicket>();
+		this.parkingAreas = new ArrayList<ParkingArea>();
 
-    private void initDefaultData() {
-        // Thêm một số người dùng mẫu
-        users.add(new User("admin", "admin123", Role.ADMIN));
-        users.add(new User("user1", "password1", Role.STAFF));
-        users.add(new User("user2", "password2", Role.STAFF));
-        
-        subscriptionCards.add(new SubscriptionCard("C-001", "ABC-123", "Khách Hàng A", VehicleType.CAR, LocalDate.now().plusMonths(1))); 
-		subscriptionCards.add(new SubscriptionCard("C-002", "DEF-456", "Khách Hàng B", VehicleType.CAR, LocalDate.now().minusDays(5)));
-   
+		initDefaultData();
+	}
+
+	private void initDefaultData() {
+		// Thêm một số người dùng mẫu
+		users.add(new User("admin", "admin123", Role.ADMIN));
+		users.add(new User("user1", "password1", Role.STAFF));
+		users.add(new User("user2", "password2", Role.STAFF));
+
+		subscriptionCards.add(new SubscriptionCard("C-001", "ABC-123", "Khách Hàng A", VehicleType.CAR,
+				LocalDate.now().plusMonths(1)));
+		subscriptionCards.add(new SubscriptionCard("C-002", "DEF-456", "Khách Hàng B", VehicleType.CAR,
+				LocalDate.now().minusDays(5)));
+
 		parkingAreas.add(new ParkingArea("A", "Khu A", VehicleType.CAR));
 		parkingAreas.add(new ParkingArea("B", "Khu B", VehicleType.MOTORBIKE));
-		
+
 		for (int i = 1; i < 10; i++) {
 			parkingSlots.add(new ParkingSlot("A" + i, VehicleType.CAR, false));
 		}
 		for (int i = 1; i < 10; i++) {
-			parkingSlots.add(new ParkingSlot("B-"+ i, VehicleType.MOTORBIKE, false));
+			parkingSlots.add(new ParkingSlot("B-" + i, VehicleType.MOTORBIKE, false));
 		}
 		
-    }
+	}
 
-    // Hàm lấy instance duy nhất của DataStorage
-    public static DataStorage getInstance() {
-        if (instance == null) {
-            instance = new DataStorage();
-        }
-        return instance;
-    }
+	// Hàm lấy instance duy nhất của DataStorage
+	public static synchronized DataStorage getInstance() {
+		if (instance == null) {
+			instance = new DataStorage();
+		}
+		return instance;
+	}
 
-    public List<User> getUsers() {
-        return users;
-    }
+	public List<User> getUsers() {
+		return users;
+	}
 
-    public void addUser(User user) {
-        users.add(user);
-    }
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
 
-    public User findUserByUsername(String username) {
-        for (User user : users) {
-            if (user.getUserName().equals(username)) {
-                return user;
-            }
-        }
-        return null; // Không tìm thấy người dùng
-    }
+	public List<ParkingSlot> getParkingSlots() {
+		return parkingSlots;
+	}
 
-   
+	public void setParkingSlots(List<ParkingSlot> parkingSlots) {
+		this.parkingSlots = parkingSlots;
+	}
+
+	public List<SubscriptionCard> getSubscriptionCards() {
+		return subscriptionCards;
+	}
+
+	public void setSubscriptionCards(List<SubscriptionCard> subscriptionCards) {
+		this.subscriptionCards = subscriptionCards;
+	}
+
+	public List<ParkingTicket> getParkingTickets() {
+		return parkingTickets;
+	}
+
+	public void setParkingTickets(List<ParkingTicket> parkingTickets) {
+		this.parkingTickets = parkingTickets;
+	}
+
+	public List<ParkingTicket> getParkingTicketsHistory() {
+		return parkingTicketsHistory;
+	}
+
+	public void setParkingTicketsHistory(List<ParkingTicket> parkingTicketsHistory) {
+		this.parkingTicketsHistory = parkingTicketsHistory;
+	}
+
+	public List<ParkingArea> getParkingAreas() {
+		return parkingAreas;
+	}
+
+	public void setParkingAreas(List<ParkingArea> parkingAreas) {
+		this.parkingAreas = parkingAreas;
+	}
+
+	public User findUserByUsername(String username) {
+		for (User user : users) {
+			if (user.getUserName().equals(username)) {
+				return user;
+			}
+		}
+		return null; // Không tìm thấy người dùng
+	}
+
 }

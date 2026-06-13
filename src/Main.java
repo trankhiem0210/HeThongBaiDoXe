@@ -1,40 +1,54 @@
 import view.*;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
 import javax.swing.*;
 
-public class Main {
-    public static void main(String[] args) {
-        // Sử dụng invokeLater để đảm bảo Thread-safe cho UI Swing
-        SwingUtilities.invokeLater(() -> {
-            // Tùy chỉnh giao diện theo hệ điều hành (Look and Feel)
-            try {
-                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+public class Main extends JFrame {
 
-            // 1. Hiển thị thử màn hình đăng nhập
-            LoginView loginView = new LoginView();
-            loginView.setVisible(true);
+	public Main() {
+		// Thiet lap cac thuoc tinh co ban cho cua so chinh
+		setTitle("Hệ Thống Quản Lý Bãi Đỗ Xe");
+		setSize(800, 500);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null); // Hien thi cua so o giua man hinh
+		setLayout(new BorderLayout());
 
-            // 2. Hiển thị màn hình chính (Dashboard) với các chức năng
-            showMainDashboard();
-        });
-    }
+		initComponents();
+	}
 
-    private static void showMainDashboard() {
-        JFrame mainFrame = new JFrame("Hệ thống Quản lý Bãi đỗ xe - Dashboard");
-        mainFrame.setSize(800, 500);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setLocationRelativeTo(null);
+	private void initComponents() {
+		// Thiet lap Panel phia tren chua nut Dang xuat
+		JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		add(topPanel, BorderLayout.NORTH);
 
-        JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("Xe Vào (Check-In)", new CheckInView());
-        tabbedPane.addTab("Xe Ra (Check-Out)", new CheckOutView());
-        tabbedPane.addTab("Đăng Ký Vé Tháng", new MonthlyCardRegisterView());
-        tabbedPane.addTab("Tìm Kiếm", new SearchView());
-        tabbedPane.addTab("Báo Cáo Thống Kê", new ReportView());
+		// Tao JTabbedPane de chua cac man hinh chuc nang theo dang Tab
+		JTabbedPane tabbedPane = new JTabbedPane();
 
-        mainFrame.add(tabbedPane);
-        mainFrame.setVisible(true);
-    }
+		// Khoi tao cac Panel chuc nang
+		CheckInPanel checkInPanel = new CheckInPanel();
+		CheckOutPanel checkOutPanel = new CheckOutPanel();
+		ReportPanel reportPanel = new ReportPanel();
+		SearchPanel searchPanel = new SearchPanel();
+		MonthlyCardRegisterPanel monthlyCardRegisterPanel = new MonthlyCardRegisterPanel();
+
+		// Them cac Panel vao Tab
+		tabbedPane.addTab("Quản lý Check-In", checkInPanel);
+		tabbedPane.addTab("Quản lý Check-Out", checkOutPanel);
+		tabbedPane.addTab("Đăng ký vé tháng", monthlyCardRegisterPanel);
+		tabbedPane.addTab("Tra cứu/Tìm kiếm", searchPanel);
+		tabbedPane.addTab("Báo Cáo Doanh Thu", reportPanel);
+
+		// Them JTabbedPane vao vi tri trung tam cua MainFrame
+		add(tabbedPane, BorderLayout.CENTER);
+	}
+
+	// Diem bat dau chuong trinh duoc chuyen sang man hinh dang nhap
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(() -> {
+			Main mainFrame = new Main();
+			mainFrame.setVisible(true);
+		});
+	}
 }

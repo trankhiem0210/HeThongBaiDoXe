@@ -35,44 +35,35 @@ public class SubscriptionCard {
 		if (expiryDate == null) return false ;
 		return LocalDate.now().isBefore(expiryDate) || LocalDate.now().isEqual(expiryDate);
 	}
-	String getCardId() {
+	public String getCardId() {
 		return cardId;
 	}
-
-	void setCardId(String cardId) {
+	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
-
-	String getPlateNumber() {
+	public String getPlateNumber() {
 		return plateNumber;
 	}
-
-	void setPlateNumber(String plateNumber) {
+	public void setPlateNumber(String plateNumber) {
 		this.plateNumber = plateNumber;
 	}
-
-	String getOwnerName() {
+	public String getOwnerName() {
 		return ownerName;
 	}
-
-	void setOwnerName(String ownerName) {
+	public void setOwnerName(String ownerName) {
 		this.ownerName = ownerName;
 	}
-
-	VehicleType getVehicleType() {
+	public VehicleType getVehicleType() {
 		return vehicleType;
 	}
-
-	void setVehicleType(VehicleType vehicleType) {
+	public void setVehicleType(VehicleType vehicleType) {
 		this.vehicleType = vehicleType;
 	}
-
-	LocalDate getExpiryDate() {
+	public LocalDate getExpiryDate() {
 		return expiryDate;
 	}
-
-	void setExpiryDate(LocalDate expiryDate) {
+	public void setExpiryDate(LocalDate expiryDate) {
 		this.expiryDate = expiryDate;
 	}
-
+	
 }

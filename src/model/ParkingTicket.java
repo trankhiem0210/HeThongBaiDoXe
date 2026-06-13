@@ -38,46 +38,46 @@ public class ParkingTicket {
 		this.totalFee = totalFee;
 		this.isCheckout = isCheckout;
 	}
-	String getTicketId() {
+	public String getTicketId() {
 		return ticketId;
 	}
-	void setTicketId(String ticketId) {
+	public void setTicketId(String ticketId) {
 		this.ticketId = ticketId;
 	}
-	String getPlateNumber() {
+	public String getPlateNumber() {
 		return plateNumber;
 	}
-	void setPlateNumber(String plateNumber) {
+	public void setPlateNumber(String plateNumber) {
 		this.plateNumber = plateNumber;
 	}
-	VehicleType getVehicleType() {
+	public VehicleType getVehicleType() {
 		return vehicleType;
 	}
-	void setVehicleType(VehicleType vehicleType) {
+	public void setVehicleType(VehicleType vehicleType) {
 		this.vehicleType = vehicleType;
 	}
-	LocalDateTime getEntryTime() {
+	public LocalDateTime getEntryTime() {
 		return entryTime;
 	}
-	void setEntryTime(LocalDateTime entryTime) {
+	public void setEntryTime(LocalDateTime entryTime) {
 		this.entryTime = entryTime;
 	}
-	LocalDateTime getExitTime() {
+	public LocalDateTime getExitTime() {
 		return exitTime;
 	}
-	void setExitTime(LocalDateTime exitTime) {
+	public void setExitTime(LocalDateTime exitTime) {
 		this.exitTime = exitTime;
 	}
-	double getTotalFee() {
+	public double getTotalFee() {
 		return totalFee;
 	}
-	void setTotalFee(double totalFee) {
+	public void setTotalFee(double totalFee) {
 		this.totalFee = totalFee;
 	}
-	boolean isCheckout() {
+	public boolean isCheckout() {
 		return isCheckout;
 	}
-	void setCheckout(boolean isCheckout) {
+	public void setCheckout(boolean isCheckout) {
 		this.isCheckout = isCheckout;
 	}
 	
