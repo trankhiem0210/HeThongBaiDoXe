@@ -13,12 +13,12 @@ public class CheckOutService {
 	private final PricingPolicy pricingPolicy;
 
 	public CheckOutService() {
-		this.dataStorage = DataStorage.getInstance(); // Gọi Singleton DataStorage
+		this.dataStorage = DataStorage.getInstance();
 		this.pricingPolicy = new PricingPolicy(new PricingStragety());
 	}
 
 	public String performCheckOut(String slotId, String ticketId) {
-		// 1. Kiểm tra Vị trí đỗ
+		// Kiem tra vi tri do
 		ParkingSlot foundSlot = null;
 		for (ParkingSlot slot : dataStorage.getParkingSlots()) {
 			if (slot.getSlotId().equalsIgnoreCase(slotId)) {
@@ -29,7 +29,7 @@ public class CheckOutService {
 			return "Lỗi: Không tìm thấy vị trí đỗ hoặc vị trí đang trống!";
 		}
 
-		// 2. Kiểm tra Vé xe
+		// Kiem tra ve xe
 		ParkingTicket foundTicket = null;
 		for (ParkingTicket ticket : dataStorage.getParkingTickets()) {
 			if (ticket.getTicketId().equalsIgnoreCase(ticketId)) {
@@ -40,7 +40,7 @@ public class CheckOutService {
 			return "Lỗi: Không tìm thấy vé xe trên hệ thống!";
 		}
 
-		// 3. Kiểm tra Thẻ tháng (So khớp biển số và hạn dùng)
+		// Kiem tra the thang
 		boolean hasValidSubscription = false;
 		for (SubscriptionCard card : dataStorage.getSubscriptionCards()) {
 			if (card.getPlateNumber().equalsIgnoreCase(foundTicket.getPlateNumber()) && card.isValid()) {
@@ -48,15 +48,14 @@ public class CheckOutService {
 			}
 		}
 
-		// 4. Chốt giờ ra và tính tiền
+		// Gio ra va tinh tien
 		foundTicket.setExitTime(LocalDateTime.now());
 		double totalFee = pricingPolicy.calculateFee(foundTicket, hasValidSubscription);
 		
 		foundTicket.setTotalFee(totalFee);
-		// Chú ý: Cần chắc chắn trong file ParkingTicket của bạn có hàm setCheckout(boolean)
 		foundTicket.setCheckout(true); 
 
-		// 5. Cập nhật lại kho dữ liệu
+		// Cap nhat lai kho du lieu
 		dataStorage.getParkingTickets().remove(foundTicket);
 		dataStorage.getParkingTicketsHistory().add(foundTicket);
 		foundSlot.setOccupied(false);
