@@ -7,10 +7,12 @@ public class ParkingSystemFacade {
 
     private final SearchService searchService;
     private final SubscriptionService subscriptionService;
+    private final CheckOutService checkOutService;
 
     private ParkingSystemFacade() {
         this.searchService = new SearchService();
         this.subscriptionService = new SubscriptionService();
+        this.checkOutService = new CheckOutService();
     }
 
     public static ParkingSystemFacade getInstance() {
@@ -40,5 +42,7 @@ public class ParkingSystemFacade {
         return subscriptionService.registerSubscriptionCard(plateNumber, ownerName, vehicleType, months);
     }
 
-
+    public String performCheckOut(String slotId, String ticketId) {
+		return checkOutService.performCheckOut(slotId, ticketId);
+	}
 }
