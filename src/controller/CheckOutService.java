@@ -1,4 +1,4 @@
-package controllers;
+package controller;
 
 import java.time.LocalDateTime;
 import models.ParkingSlot;
