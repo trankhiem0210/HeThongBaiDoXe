@@ -34,106 +34,51 @@ public class CheckInPanel extends JPanel {
 		lblTitle.setFont(new Font("Arial", Font.BOLD, 24));
 		add(lblTitle, BorderLayout.NORTH);
 
-		// Panel nhập liệu
-		JPanel inputPanel = createInputPanel();
-		add(inputPanel, BorderLayout.CENTER);
+		// Khu vực nhập thông tin
+		JPanel centerPanel = new JPanel(new BorderLayout(10, 10));
+		JPanel formPanel = new JPanel(new GridLayout(3, 2, 10, 20));
 
-		// Panel kết quả
-		JPanel resultPanel = createResultPanel();
-		add(resultPanel, BorderLayout.SOUTH);
-	}
-
-	/**
-	 * Tạo panel nhập liệu
-	 */
-	private JPanel createInputPanel() {
-		JPanel panel = new JPanel(new GridLayout(5, 1, 10, 15));
-		panel.setBorder(BorderFactory.createTitledBorder("Thông Tin Check-In"));
-
-		// Row 1: Biển số xe
-		JPanel row1 = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
-		JLabel lblPlate = new JLabel("Biển Số Xe (ABC-123):");
-		lblPlate.setFont(new Font("Arial", Font.PLAIN, 14));
-		lblPlate.setPreferredSize(new java.awt.Dimension(200, 25));
+		formPanel.add(new JLabel("Biển Số Xe (VD: ABC-123): "));
 		txtPlateNumber = new JTextField(15);
 		txtPlateNumber.setFont(new Font("Arial", Font.PLAIN, 14));
-		row1.add(lblPlate);
-		row1.add(txtPlateNumber);
-		panel.add(row1);
+		formPanel.add(txtPlateNumber);
 
-		// Row 2: Loại xe
-		JPanel row2 = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
-		JLabel lblVehicleType = new JLabel("Loại Xe:");
-		lblVehicleType.setFont(new Font("Arial", Font.PLAIN, 14));
-		lblVehicleType.setPreferredSize(new java.awt.Dimension(200, 25));
+		formPanel.add(new JLabel("Loại Xe: "));
 		cmbVehicleType = new JComboBox<>(VehicleType.values());
 		cmbVehicleType.setFont(new Font("Arial", Font.PLAIN, 14));
-		cmbVehicleType.setPreferredSize(new java.awt.Dimension(150, 30));
-		row2.add(lblVehicleType);
-		row2.add(cmbVehicleType);
-		panel.add(row2);
+		formPanel.add(cmbVehicleType);
 
-		// Row 3: Thông tin chỗ đỗ
-		JPanel row3 = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
-		JLabel lblInfo = new JLabel("Thông Tin Chỗ Đỗ:");
-		lblInfo.setFont(new Font("Arial", Font.PLAIN, 14));
-		row3.add(lblInfo);
+		formPanel.add(new JLabel("Thông Tin Chỗ Đỗ: "));
 		lblSlotInfo = new JLabel(checkInController.getSlotInfo());
-		lblSlotInfo.setFont(new Font("Arial", Font.BOLD, 12));
+		lblSlotInfo.setFont(new Font("Arial", Font.BOLD, 14));
 		lblSlotInfo.setForeground(new java.awt.Color(0, 100, 200));
-		row3.add(lblSlotInfo);
-		panel.add(row3);
+		formPanel.add(lblSlotInfo);
 
-		// Row 4: Buttons
-		JPanel row4 = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 5));
-		btnCheckIn = new JButton("CHECK-IN");
+		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+		btnCheckIn = new JButton("Check-In");
 		btnCheckIn.setFont(new Font("Arial", Font.BOLD, 14));
-		btnCheckIn.setPreferredSize(new java.awt.Dimension(120, 40));
-		btnCheckIn.setBackground(new java.awt.Color(0, 150, 0));
-		btnCheckIn.setForeground(java.awt.Color.WHITE);
-		
-		btnClear = new JButton("CLEAR");
+		btnClear = new JButton("Clear");
 		btnClear.setFont(new Font("Arial", Font.BOLD, 14));
-		btnClear.setPreferredSize(new java.awt.Dimension(120, 40));
-		
-		row4.add(btnCheckIn);
-		row4.add(btnClear);
-		panel.add(row4);
+		buttonPanel.add(btnCheckIn);
+		buttonPanel.add(btnClear);
 
-		// Row 5: Mô tả
-		JPanel row5 = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
-		JLabel lblDesc = new JLabel("Định dạng biển số: 3 chữ cái - 3 số (VD: ABC-123)");
-		lblDesc.setFont(new Font("Arial", Font.ITALIC, 11));
-		lblDesc.setForeground(java.awt.Color.GRAY);
-		row5.add(lblDesc);
-		panel.add(row5);
+		centerPanel.add(formPanel, BorderLayout.NORTH);
+		centerPanel.add(buttonPanel, BorderLayout.CENTER);
+		add(centerPanel, BorderLayout.CENTER);
+
+		// Vùng hiển thị kết quả
+		txtResult = new JTextArea(8, 40);
+		txtResult.setFont(new Font("Monospaced", Font.PLAIN, 14));
+		txtResult.setEditable(false);
+		txtResult.setLineWrap(true);
+		txtResult.setWrapStyleWord(true);
+		JScrollPane scrollPane = new JScrollPane(txtResult);
+		add(scrollPane, BorderLayout.SOUTH);
 
 		// Xử lý sự kiện
 		btnCheckIn.addActionListener(e -> performCheckIn());
 		btnClear.addActionListener(e -> clearForm());
 		cmbVehicleType.addActionListener(e -> updateSlotInfo());
-
-		return panel;
-	}
-
-	/**
-	 * Tạo panel hiển thị kết quả
-	 */
-	private JPanel createResultPanel() {
-		JPanel panel = new JPanel(new BorderLayout());
-		panel.setBorder(BorderFactory.createTitledBorder("Kết Quả"));
-
-		txtResult = new JTextArea(8, 40);
-		txtResult.setFont(new Font("Monospaced", Font.PLAIN, 13));
-		txtResult.setEditable(false);
-		txtResult.setLineWrap(true);
-		txtResult.setWrapStyleWord(true);
-		txtResult.setBackground(new java.awt.Color(240, 240, 240));
-
-		JScrollPane scrollPane = new JScrollPane(txtResult);
-		panel.add(scrollPane, BorderLayout.CENTER);
-
-		return panel;
 	}
 
 	/**

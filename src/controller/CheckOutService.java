@@ -1,11 +1,11 @@
 package controller;
 
 import java.time.LocalDateTime;
-import models.ParkingSlot;
-import models.ParkingTicket;
-import models.PricingPolicy;
-import models.PricingStragety;
-import models.SubscriptionCard;
+import model.ParkingSlot;
+import model.ParkingTicket;
+import model.PricingPolicy;
+import model.HourlyPricingStrategy;
+import model.SubscriptionCard;
 import repository.DataStorage;
 
 public class CheckOutService {
@@ -14,7 +14,7 @@ public class CheckOutService {
 
 	public CheckOutService() {
 		this.dataStorage = DataStorage.getInstance();
-		this.pricingPolicy = new PricingPolicy(new PricingStragety());
+		this.pricingPolicy = new PricingPolicy(new HourlyPricingStrategy());
 	}
 
 	public String performCheckOut(String slotId, String ticketId) {

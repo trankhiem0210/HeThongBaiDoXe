@@ -5,7 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.*;
-import controllers.ParkingSystemFacade;
+import controller.ParkingSystemFacade;
 
 public class CheckOutPanel extends JPanel {
 	private JTextField txtSlotId;
