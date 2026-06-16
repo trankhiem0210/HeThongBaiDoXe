@@ -55,8 +55,12 @@ public static final double HOURLY_RATE_BICYCLE = 2000.0;   // Xe dap
 		return hours * currentRate;
 	}
 
-	public PricingStragety getStrategy() { return strategy; }
-	public void setStrategy(PricingStragety strategy) { this.strategy = strategy; }
+	public PricingStragety getStrategy() { 
+		return strategy; 
+	}
+	public void setStrategy(PricingStragety strategy) { 
+		this.strategy = strategy; 
+	}
 }
 
 	public void setStrategy(PricingStragety strategy) {
