@@ -13,7 +13,7 @@ import model.SubscriptionCard;
 import model.User;
 
 public class DataStorage {
-	private static DataStorage instance;
+	public static DataStorage instance;
 
 	private List<User> users;
 	private List<ParkingSlot> parkingSlots;
@@ -23,7 +23,7 @@ public class DataStorage {
 	private List<ParkingArea> parkingAreas;
 
 	// Sử dụng private constructor để áp dụng Singleton Pattern
-	private DataStorage() {
+    public DataStorage() {
 		this.users = new ArrayList<>();
 		this.parkingSlots = new ArrayList<ParkingSlot>();
 		this.subscriptionCards = new ArrayList<SubscriptionCard>();
@@ -41,9 +41,9 @@ public class DataStorage {
 		users.add(new User("user2", "password2", Role.STAFF));
 
 		subscriptionCards.add(new SubscriptionCard("C-001", "ABC-123", "Khách Hàng A", VehicleType.CAR,
-				LocalDate.now().plusMonths(1)));
+				LocalDate.now().plusMonths(1), 200000));
 		subscriptionCards.add(new SubscriptionCard("C-002", "DEF-456", "Khách Hàng B", VehicleType.CAR,
-				LocalDate.now().minusDays(5)));
+				LocalDate.now().minusDays(5), 200000));
 
 		parkingAreas.add(new ParkingArea("A", "Khu A", VehicleType.CAR));
 		parkingAreas.add(new ParkingArea("B", "Khu B", VehicleType.MOTORBIKE));
@@ -54,6 +54,8 @@ public class DataStorage {
 		for (int i = 1; i < 10; i++) {
 			parkingSlots.add(new ParkingSlot("B-" + i, VehicleType.MOTORBIKE, false));
 		}
+		//Thêm một số thẻ tháng mẫu
+
 		
 	}
 
@@ -121,5 +123,8 @@ public class DataStorage {
 		}
 		return null; // Không tìm thấy người dùng
 	}
+	
+	
 
-}
+
+	}
